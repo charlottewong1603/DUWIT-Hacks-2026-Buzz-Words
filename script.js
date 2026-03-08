@@ -7,19 +7,6 @@ function showPage(pageId){
 
 
 
-// Slang Translator
-document.getElementById('translate-btn').addEventListener('click', ()=>{
-  const slang=document.getElementById('slang-input').value;
-  const output=document.getElementById('translation-output');
-  const voiceOutput=document.getElementById('ai-voice-output');
-  if(slang.trim()===""){output.innerHTML="<p>Please enter some slang!</p>";voiceOutput.innerHTML="<p></p>";return;}
-  output.innerHTML=`<p>"${slang}" means "Example meaning here"</p>`;
-  voiceOutput.innerHTML=`<p>AI voice would read: "${slang} - Example sentence using this slang."</p>`;
-});
-document.getElementById('mic-btn').addEventListener('click',()=>{alert("Voice input placeholder: say something!");});
-
-
-
 
 // Mini Calendar
 const hiveEvents = [
@@ -327,7 +314,7 @@ const slangWords=[
   {word:"Stevo",definition:"Stephenson College, Durham."},
   {word:"Butler",definition:"Josephine Butler College, Durham."},
   {word:"Cardiac Hill",definition:"Steep hill on Durham campus."},
-  {word:"Stay Hexy",definition:"Joke motto of Trevelyan college."},
+  {word:"Stay hexy",definition:"Joke motto of Trevelyan college."},
   {word:"Marys mile",definition:"Drinking challenge of St Marys College."}
 ];
 
