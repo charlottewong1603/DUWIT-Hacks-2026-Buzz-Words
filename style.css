@@ -5,15 +5,23 @@ body { background-color: #fdf6e3; color:#222; line-height:1.6; }
 
 
 
+
+
+
+
 /* Colors */
 :root {
-  --primary-yellow:#ffbf00;
-  --primary-yellow-dark:#f2bb05;
-  --primary-blue:#124e78;
-  --bg-card:#fff7d9;
-  --text-dark:#222;
-  --text-light:#555;
+ --primary-yellow:#ffbf00;
+ --primary-yellow-dark:#f2bb05;
+ --primary-blue:#124e78;
+ --bg-card:#fff7d9;
+ --text-dark:#222;
+ --text-light:#555;
 }
+
+
+
+
 
 
 
@@ -28,6 +36,10 @@ body { background-color: #fdf6e3; color:#222; line-height:1.6; }
 
 
 
+
+
+
+
 /* Pages & transitions */
 .page { display:none; opacity:0; transition:opacity 0.3s ease; }
 .page.active { display:block; opacity:1; }
@@ -35,14 +47,22 @@ body { background-color: #fdf6e3; color:#222; line-height:1.6; }
 
 
 
+
+
+
+
 /* Hero */
 .hero {
-  display:flex; flex-direction:column; justify-content:center; align-items:center;
-  min-height:60vh; text-align:center;
-  background: linear-gradient(135deg, #fff7d9, #ffe9a1);
+ display:flex; flex-direction:column; justify-content:center; align-items:center;
+ min-height:60vh; text-align:center;
+ background: linear-gradient(135deg, #fff7d9, #ffe9a1);
 }
 .hero h1 { font-size:4rem; color:#d74e09; margin-bottom:0.5rem; }
 .hero .subtitle { font-size:1.75rem; color:var(--primary-blue); }
+
+
+
+
 
 
 
@@ -53,15 +73,23 @@ body { background-color: #fdf6e3; color:#222; line-height:1.6; }
 
 
 
+
+
+
+
 /* Cards */
 .slang-translator, .right-block {
-  background:var(--bg-card); border-radius:20px; padding:2rem;
-  box-shadow:0 8px 24px rgba(0,0,0,0.08); flex:1; min-width:300px;
+ background:var(--bg-card); border-radius:20px; padding:2rem;
+ box-shadow:0 8px 24px rgba(0,0,0,0.08); flex:1; min-width:300px;
 }
 .translator-box { display:flex; flex-wrap:wrap; gap:0.5rem; margin-bottom:1rem; }
 .translator-box input { flex:1; padding:0.5rem 0.75rem; border-radius:8px; border:1px solid #ccc; min-width:150px; }
 .translator-box button { padding:0.5rem 1rem; border-radius:8px; border:none; background-color:var(--primary-yellow); cursor:pointer; font-weight:bold; transition:all 0.3s ease; }
 .translator-box button:hover { background-color:var(--primary-yellow-dark); transform:translateY(-2px); box-shadow:0 4px 12px rgba(0,0,0,0.15); }
+
+
+
+
 
 
 
@@ -75,23 +103,27 @@ body { background-color: #fdf6e3; color:#222; line-height:1.6; }
 #calendar-table td:hover { background-color: var(--primary-yellow-dark); color:white; border-radius:50%; transition:0.2s; }
 /* Style for days with events */
 #calendar-table td.has-event {
-  font-weight: bold;
-  color: var(--primary-blue);
-  border-bottom: 3px solid var(--primary-yellow);
+ font-weight: bold;
+ color: var(--primary-blue);
+ border-bottom: 3px solid var(--primary-yellow);
 }
+
 
 /* Optional: Show event name on hover */
 #calendar-table td.has-event:hover::after {
-  content: attr(title);
-  position: absolute;
-  background: #333;
-  color: #fff;
-  padding: 5px;
-  border-radius: 4px;
-  font-size: 10px;
-  z-index: 10;
-  white-space: nowrap;
+ content: attr(title);
+ position: absolute;
+ background: #333;
+ color: #fff;
+ padding: 5px;
+ border-radius: 4px;
+ font-size: 10px;
+ z-index: 10;
+ white-space: nowrap;
 }
+
+
+
 
 
 
@@ -102,10 +134,18 @@ body { background-color: #fdf6e3; color:#222; line-height:1.6; }
 
 
 
+
+
+
+
 /* Footer */
 footer { background-color:var(--primary-yellow-dark); padding:1rem 2rem; text-align:center; color:var(--text-dark); font-weight:600; margin-top:2rem; border-top:2px solid var(--primary-blue); }
 footer a { color:var(--primary-blue); text-decoration:none; margin-left:0.5rem; }
 footer a:hover { text-decoration:underline; }
+
+
+
+
 
 
 
@@ -119,16 +159,128 @@ footer a:hover { text-decoration:underline; }
 
 
 
+
+
+
+
 /* Honeycomb */
 .honeycomb { display:flex; flex-wrap:wrap; width:max-content; margin:auto; margin-top:1rem; }
 .honeycomb .hex {
-  width:90px; height:78px; background-color: var(--primary-yellow); clip-path: polygon(50% 0%, 93.3% 25%, 93.3% 75%, 50% 100%, 6.7% 75%, 6.7% 25%);
-  display:flex; flex-direction:column; align-items:center; justify-content:center; color:white; font-size:0.85rem; cursor:pointer; transition:all 0.3s ease; overflow:hidden; text-align:center; margin:0 5px -26px 5px; box-shadow:0 2px 4px rgba(0,0,0,0.2);
+ width:90px; height:78px; background-color: var(--primary-yellow); clip-path: polygon(50% 0%, 93.3% 25%, 93.3% 75%, 50% 100%, 6.7% 75%, 6.7% 25%);
+ display:flex; flex-direction:column; align-items:center; justify-content:center; color:white; font-size:0.85rem; cursor:pointer; transition:all 0.3s ease; overflow:hidden; text-align:center; margin:0 5px -26px 5px; box-shadow:0 2px 4px rgba(0,0,0,0.2);
 }
-.honeycomb .hex:nth-child(2n) { margin-top:39px; }
-.hex.expanded { width:220px; height:160px; font-size:0.95rem; padding:5px; background-color:var(--primary-yellow-dark); z-index:2; }
-.hex .word { font-weight:bold; margin-bottom:5px; }
-.hex:hover { transform: scale(1.05) translateY(-2px); background-color:#ffd25a; }
+/* Updated Honeycomb Dimensions from Code 2 */
+.honeycomb { 
+  display: flex; 
+  flex-wrap: wrap; 
+  width: max-content; 
+  margin: auto; 
+  margin-top: 1rem; 
+}
+
+.honeycomb .hex { 
+  width: 100px; /* Slightly larger */
+  height: 88px; 
+  background-color: #ff9900; /* Deeper orange-yellow */
+  clip-path: polygon(50% 0%, 93.3% 25%, 93.3% 75%, 50% 100%, 6.7% 75%, 6.7% 25%); 
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  justify-content: center; 
+  color: white; 
+  font-size: 0.9rem; 
+  cursor: pointer; 
+  transition: all 0.3s ease; 
+  overflow: hidden; 
+  text-align: center; 
+  margin: 0 5px -28px 5px; 
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* The container that holds the hive */
+.honeycomb { 
+  display: flex; 
+  flex-wrap: wrap; 
+  max-width: 450px;      /* Limits width so they wrap into a hive shape */
+  margin: 50px auto;     /* Centers hive on page */
+  padding-left: 25px;    /* Balances the shift */
+}
+
+/* Individual Hexagon Cell */
+.honeycomb .hex { 
+  width: 100px; 
+  height: 88px; 
+  background-color: #ff9900; 
+  clip-path: polygon(50% 0%, 93.3% 25%, 93.3% 75%, 50% 100%, 6.7% 75%, 6.7% 25%); 
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  justify-content: center; 
+  color: white; 
+  font-size: 0.75rem; /* Slightly smaller base font */
+  cursor: pointer; 
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Smooth pop-out effect */
+  text-align: center; 
+  margin: 0 2px -22px 2px; 
+  position: relative; /* Allows z-index to work */
+  z-index: 1;
+}
+
+/* Interlock logic (keep this the same) */
+.honeycomb .hex:nth-child(8n+5),
+.honeycomb .hex:nth-child(8n+6),
+.honeycomb .hex:nth-child(8n+7),
+.honeycomb .hex:nth-child(8n+8) {
+  transform: translateX(-52px);
+}
+
+/* THE EXPANDED STATE */
+.hex.expanded { 
+  z-index: 100; /* Sits on top of everything else */
+  background-color: #e68a00; 
+  clip-path: none; /* Becomes a rectangle for better reading */
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  
+  /* IMPORTANT: We use scale to grow, NOT width/height. 
+     This prevents the other hexagons from moving. */
+  transform: scale(2.4) !important; 
+}
+
+/* Ensure the text inside the expanded hex doesn't look squashed */
+.hex .word { 
+  font-weight: bold; 
+  transition: font-size 0.3s;
+}
+
+.hex.expanded .word {
+  font-size: 0.6rem; /* Scale makes this look larger, so we set it smaller here */
+  margin-bottom: 2px;
+  color: #fff;
+}
+
+.hex .def {
+  font-size: 0.5rem; /* Scale will multiply this to be readable */
+  padding: 0 5px;
+  line-height: 1.1;
+  opacity: 0;
+}
+
+.hex.expanded .def {
+  opacity: 1;
+}
+
+.hex:hover { 
+  background-color: #ffb84d; 
+  z-index: 10; 
+  /* If not expanded, just a tiny bump */
+}
+.hex .word { font-weight: bold; }
+.hex:hover { background-color: #ffb84d; transform: scale(1.05); z-index: 10; }
+
+
+
+
 
 
 
@@ -136,38 +288,42 @@ footer a:hover { text-decoration:underline; }
 /* Buttons */
 button { cursor:pointer; font-family:'Poppins', sans-serif; }
 .event-tag {
-  font-size: 0.6rem;
-  background: var(--primary-yellow);
-  color: var(--primary-blue);
-  border-radius: 4px;
-  padding: 2px;
-  margin-top: 4px;
-  line-height: 1;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+ font-size: 0.6rem;
+ background: var(--primary-yellow);
+ color: var(--primary-blue);
+ border-radius: 4px;
+ padding: 2px;
+ margin-top: 4px;
+ line-height: 1;
+ overflow: hidden;
+ text-overflow: ellipsis;
+ white-space: nowrap;
 }
+
 
 /* Keeps the calendar cells perfectly square and clean */
 #calendar-table td {
-  height: 40px; 
-  position: relative;
-  vertical-align: middle;
+ height: 40px;
+ position: relative;
+ vertical-align: middle;
 }
+
 
 /* A small indicator dot for events */
 .event-dot {
-  width: 6px;
-  height: 6px;
-  background-color: var(--primary-yellow-dark);
-  border-radius: 50%;
-  position: absolute;
-  bottom: 4px;
-  left: 50%;
-  transform: translateX(-50%);
+ width: 6px;
+ height: 6px;
+ background-color: var(--primary-yellow-dark);
+ border-radius: 50%;
+ position: absolute;
+ bottom: 4px;
+ left: 50%;
+ transform: translateX(-50%);
 }
 
+
 #calendar-table td.has-event {
-  background-color: #fff9e6;
-  font-weight: bold;
+ background-color: #fff9e6;
+ font-weight: bold;
 }
+
