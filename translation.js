@@ -48,4 +48,3 @@ document.getElementById('slang-input').addEventListener('keypress', (e) => {
        document.getElementById('translate-btn').click();
    }
 });
-
