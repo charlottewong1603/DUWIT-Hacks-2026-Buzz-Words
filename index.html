@@ -5,33 +5,113 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Buzz Words Hive</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel ="stylesheet" href="style.css">
+<style>
+/* =========================================
+   1. RESET & BASE STYLES
+   ========================================= */
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+body { background-color: #fdf6e3; color:#222; line-height:1.6; overflow-x: hidden; }
+
+:root {
+  --primary-yellow: #ffbf00;
+  --primary-yellow-dark: #f2bb05;
+  --primary-blue: #124e78;
+  --primary-blue-dark: #0d3b5a;
+  --bg-card: #fff7d9;
+  --text-dark: #222;
+}
+
+/* Navigation */
+.top-nav { display:flex; justify-content:space-between; align-items:center; background-color:var(--primary-yellow-dark); padding:0.5rem 2rem; box-shadow:0 4px 12px rgba(0,0,0,0.08); position: sticky; top:0; z-index: 1000; }
+.top-nav ul { list-style:none; display:flex; gap:1.5rem; }
+.top-nav a { text-decoration:none; font-weight:600; color:var(--text-dark); cursor: pointer; }
+.top-nav a:hover { color:var(--primary-blue); }
+.logo img { height: 50px; width: auto; display: block; }
+
+/* Page Transitions */
+.page { display:none; opacity:0; transition:opacity 0.3s ease; }
+.page.active { display:block; opacity:1; }
+
+/* Hero Section */
+.hero { display:flex; flex-direction:column; justify-content:center; align-items:center; min-height:40vh; text-align:center; background: linear-gradient(135deg, #fff7d9, #ffe9a1); padding: 2rem; }
+.hero h1 { font-size:4rem; color:#d74e09; margin-bottom:0.5rem; }
+.hero .subtitle { font-size:1.75rem; color:var(--primary-blue); }
+
+/* Main Layout */
+.main-content { display:flex; flex-wrap:wrap; justify-content:center; gap:2rem; padding:2rem; max-width:1200px; margin:0 auto; }
+
+/* =========================================
+   2. BUTTONS (THE PRETTY BLUE BOXES)
+   ========================================= */
+.action-btn {
+  background-color: var(--primary-blue);
+  color: white;
+  padding: 0.8rem 1.8rem;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-block;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  text-decoration: none;
+  text-align: center;
+}
+.action-btn:hover { background-color: var(--primary-blue-dark); transform: translateY(-2px); box-shadow: 0 6px 15px rgba(0,0,0,0.2); }
+
+/* =========================================
+   3. TRANSLATOR & CALENDAR
+   ========================================= */
+.slang-translator, .right-block {
+  background:var(--bg-card); border-radius:20px; padding:2rem;
+  box-shadow:0 8px 24px rgba(0,0,0,0.08); flex:1; min-width:320px;
+}
+.translator-box { display:flex; flex-wrap:wrap; gap:0.5rem; margin-bottom:1rem; }
+.translator-box input { flex:1; padding:0.75rem; border-radius:8px; border:1px solid #ccc; }
+
+#calendar-table { width:100%; border-collapse: collapse; margin-top: 10px; }
+#calendar-table th, #calendar-table td { width:14%; height:45px; text-align:center; position: relative; cursor: pointer; border-radius: 8px; font-size: 0.8rem; }
+#calendar-table td.today { background-color: var(--primary-blue); color: white; font-weight: bold; }
+#calendar-table td.has-event { background-color: #fff2cc; font-weight: bold; color: var(--primary-blue); border-bottom: 2px solid var(--primary-yellow); }
+.event-dot { width: 6px; height: 6px; background: var(--primary-yellow-dark); border-radius: 50%; position: absolute; bottom: 4px; left: 50%; transform: translateX(-50%); }
+
+/* =========================================
+   4. HONEYCOMB
+   ========================================= */
+.profile-content { padding:2rem; max-width:1200px; margin:0 auto; text-align: center; }
+.honeycomb { display: flex; flex-wrap: wrap; max-width: 440px; margin: 40px auto; padding-left: 20px; }
+.hex { 
+  width: 100px; height: 88px; background-color: #ff9900; 
+  clip-path: polygon(50% 0%, 93.3% 25%, 93.3% 75%, 50% 100%, 6.7% 75%, 6.7% 25%); 
+  display: flex; flex-direction: column; align-items: center; justify-content: center; 
+  color: white; font-size: 0.75rem; cursor: pointer; 
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+  margin: 0 2px -22px 2px; position: relative; z-index: 1;
+}
+.hex:nth-child(8n+5), .hex:nth-child(8n+6), .hex:nth-child(8n+7), .hex:nth-child(8n+8) { transform: translateX(-52px); }
+.hex.expanded { z-index: 100; background-color: #e68a00; clip-path: none; border-radius: 12px; transform: scale(2.4) !important; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+.hex .def { opacity: 0; font-size: 0.5rem; padding: 0 5px; line-height: 1.1; height: 0; pointer-events: none; }
+.hex.expanded .def { opacity: 1; height: auto; margin-top: 3px; }
+.hex .word { font-weight: bold; pointer-events: none; }
+
+/* Modals & Footers */
+#event-modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:2000; align-items:center; justify-content:center; }
+.modal-box { background:white; padding:2rem; border-radius:15px; max-width:400px; width:90%; position:relative; }
+footer { background-color:var(--primary-yellow-dark); padding:1.5rem; text-align:center; font-weight:600; margin-top:2rem; border-top:2px solid var(--primary-blue); }
+.bee-avatar img { width: 120px; height: auto; }
+</style>
 </head>
 <body>
 
-
-
-
-
-
-
-
-<!-- Navigation -->
 <nav class="top-nav">
- <div class="logo"></div>
+ <div class="logo"><img src="buzzy bee (1).svg" alt="Logo"></div>
  <ul>
    <li><a onclick="showPage('home')">Home</a></li>
    <li><a onclick="showPage('profile')">Profile</a></li>
-   <li><a onclick="showPage('ethos')">Mission & Ethos</a></li>
+   <li><a onclick="showPage('ethos')">Mission</a></li>
  </ul>
 </nav>
-
-
-
-
-
-
-
 
 <!-- Home Page -->
 <div id="home" class="page active">
@@ -40,29 +120,19 @@
    <p class="subtitle">Bee cultured. Bee connected.</p>
  </header>
  <main class="main-content">
- 
-   <!-- Left: Slang Translator -->
    <section class="slang-translator">
      <h2>Slang Translator</h2>
      <div class="translator-box">
        <input type="text" id="slang-input" placeholder="Type slang here...">
-       <button id="mic-btn">🎤</button>
-       <button id="translate-btn">Translate</button>
+       <button class="action-btn" id="translate-btn">Translate</button>
      </div>
      <div id="translation-output"><p>Translation will appear here...</p></div>
-     <div id="ai-voice-output"><p>Examples will be read out here...</p></div>
+     <div id="ai-voice-output"></div>
    </section>
 
-
-
-
-
-
-
-
-   <!-- Right: Calendar + Mini Game -->
    <div class="right-block">
-     <select id="uni-filter" onchange="generateCalendar()" style="width: 100%; padding: 0.5rem; border-radius: 8px; border: 1px solid #ccc;">
+     <h3>Campus Events</h3>
+     <select id="uni-filter" onchange="generateCalendar()" style="width: 100%; padding: 0.5rem; border-radius: 8px; margin: 10px 0; border:1px solid #ccc;">
        <option value="all">All Universities</option>
        <option value="Aberdeen">University of Aberdeen</option>
        <option value="Bath">University of Bath</option>
@@ -92,115 +162,188 @@
        <option value="York">University of York</option>
      </select>
      <div id="calendar-container">
-       <div id="calendar-controls" style="display: flex; gap: 5px; margin-bottom: 10px;">
+       <div style="display:flex; gap:5px; justify-content:center; margin-bottom:10px;">
          <select id="month-select" onchange="updateCalendar()"></select>
          <select id="year-select" onchange="updateCalendar()"></select>
        </div>
        <table id="calendar-table"></table>
-       <table id="calendar-table"></table>
      </div>
-     <button id="mini-game-btn">Mini Game</button>
+     <button class="action-btn" id="mini-game-btn" style="width:100%; margin-top:10px;">Mini Game</button>
    </div>
-
-
-
-
-
-
-
-
  </main>
- <footer>
-   Tell your friends<span> what all the buzz is about!</span>
-   <a onclick="showPage('ethos')">Learn more</a>
- </footer>
 </div>
-
-
-
-
-
-
-
 
 <!-- Profile Page -->
 <div id="profile" class="page">
  <header class="hero"><h1>My Hive Profile</h1></header>
  <main class="profile-content">
    <section class="avatar-section">
-     <h2>🐝 Customize Your Bee</h2>
-     <div class="bee-avatar"></div>
-     <button onclick="showPage('customize')">Go to Customization</button>
+     <div class="bee-avatar"><img src="buzzy bee (1).svg" alt="Bee"></div>
+     <h3 style="margin-top:10px;">Username: Queen Bee 123</h3>
+     <button class="action-btn" onclick="showPage('customize')">Go to Customization</button>
    </section>
-   <section class="username"><h3>Username: Queen Bee 123</h3></section>
-   <section class="slang-history">
+   <section style="margin-top:2rem;">
      <h3>My Slang History</h3>
      <div class="honeycomb" id="hive"></div>
    </section>
-   <button onclick="showPage('home')">Return Home</button>
+   <button class="action-btn" onclick="showPage('home')" style="margin-top:20px;">Return Home</button>
  </main>
 </div>
-
-
-
-
-
-
-
 
 <!-- Customization Page -->
 <div id="customize" class="page">
- <header class="hero">
-   <h1>Customize Your Character</h1>
-   <p class="subtitle">Design your bee! Sprites coming soon.</p>
- </header>
- <main style="text-align:center;padding:2rem;">
-   <div style="width:150px;height:150px;background-color:var(--primary-yellow);margin:auto;border-radius:15px;">Your Sprite Here</div>
-   <button onclick="showPage('profile')">Back to Profile</button>
+ <header class="hero"><h1>Customize Your Bee</h1></header>
+ <main style="text-align:center; padding:3rem;">
+   <div style="width:250px; height:250px; margin:auto; display:flex; align-items:center; justify-content:center; border:3px dashed var(--primary-blue); border-radius:20px;">
+     <img src="buzzy bee (1).svg" style="width:80%;" alt="Bee">
+   </div>
+   <br>
+   <button class="action-btn" onclick="showPage('profile')">Back to Profile</button>
  </main>
 </div>
 
-
-
-
-
-
-
 <!-- Ethos Page -->
 <div id="ethos" class="page">
-  <header class="hero">
-    <h1>Our Mission & Ethos</h1>
-  </header>
-
-
-  <main style="padding:2rem;">
-    <p style="font-size:1.5rem; line-height:1.6;">
-      <strong>Mission Statement:</strong><br><br>
-
-
-      Our mission is to <strong>optimise the student experience</strong> by
-      <strong>accelerating cultural immersion for incoming and current international university students</strong>.
-      By breaking down the barriers of regional British slang, we help students immerse into the heart of their new university environments.
-      We strive to <strong>increase inclusion and diverse immersion in communities</strong>, empowering every student
-      to have the confidence to connect, engage, and truly belong.
-    </p>
-
-
-
-
-
-
-
-
-
-<script src="script.js"></script>
-<script src="translation.js"></script>
-<div id="event-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1000; align-items:center; justify-content:center;">
- <div style="background:white; padding:2rem; border-radius:15px; max-width:400px; width:90%; position:relative; box-shadow:0 10px 25px rgba(0,0,0,0.2);">
-   <span onclick="closeModal()" style="position:absolute; top:10px; right:15px; cursor:pointer; font-size:1.5rem;">&times;</span>
-   <h3 id="modal-date" style="color:var(--primary-blue); margin-bottom:10px;">Date</h3>
-   <div id="modal-content">No events scheduled.</div>
- </div>
+  <header class="hero"><h1>Mission & Ethos</h1></header>
+  <main style="padding:3rem; text-align:center; max-width:800px; margin:auto;">
+    <p style="font-size:1.4rem; line-height:1.6;">Our mission is to <strong>optimise the student experience</strong> by accelerating cultural immersion for international university students.</p>
+    <br><button class="action-btn" onclick="showPage('home')">Return Home</button>
+  </main>
 </div>
+
+<footer>Tell your friends! <button class="action-btn" style="padding:0.4rem 1rem; font-size:0.8rem;" onclick="showPage('ethos')">Learn More</button></footer>
+
+<div id="event-modal"><div class="modal-box"><span onclick="closeModal()" style="position:absolute; top:10px; right:15px; cursor:pointer; font-size:1.5rem;">&times;</span><h3 id="modal-date" style="color:var(--primary-blue);">Date</h3><div id="modal-content" style="margin-top:15px;"></div></div></div>
+
+<script>
+// --- DATA ---
+const slangWords = [
+ {word:"Mate",definition:"Friend or buddy."},
+ {word:"Knackered",definition:"Very tired."},
+ {word:"Bees knees",definition:"Something excellent or great."},
+ {word:"Bob's your uncle",definition:"That's it! Done."},
+ {word:"Bonkers",definition:"Crazy or mad."},
+ {word:"Cheeky Nandos",definition:"A casual meal at Nando's with friends."},
+ {word:"Jimmys",definition:"Night club in Durham."},
+ {word:"Trevs",definition:"Trevelyan college, Durham."},
+ {word:"Jobo",definition:"Josephine Butler College, Durham."},
+ {word:"Stevo",definition:"Stephenson College, Durham."},
+ {word:"Cardiac Hill",definition:"Steep hill on Durham campus."},
+ {word:"Stay hexy",definition:"Joke motto of Trevelyan college."}
+];
+
+const hiveEvents = [
+ { date: "2026-02-09", title: "Founders' Week Discovery Day", uni: "Aberdeen" },
+ { date: "2026-02-21", title: "Charity Fashion Show", uni: "Aberdeen" },
+ { date: "2026-02-01", title: "ReBalance Wellbeing Festival", uni: "Bath" },
+ { date: "2026-03-05", title: "Crufts Dog Show NEC", uni: "Birmingham" },
+ { date: "2026-03-12", title: "Global Lounge Culture Cafe", uni: "Bristol" },
+ { date: "2026-03-16", title: "Cambridge Festival Launch", uni: "Cambridge" },
+ { date: "2026-03-01", title: "St David's Day Parade", uni: "Cardiff" },
+ { date: "2026-02-21", title: "Chinese New Year", uni: "Durham" },
+ { date: "2026-03-14", title: "Headlock Vintage Sale", uni: "Durham" },
+ { date: "2026-02-28", title: "Basque Folk Dance", uni: "Edinburgh" },
+ { date: "2026-03-03", title: "Cultural Festival", uni: "Exeter" },
+ { date: "2026-01-25", title: "Burns Night Supper", uni: "Glasgow" },
+ { date: "2026-03-12", title: "Imperial Lates: Sci-Fi Night", uni: "Imperial" },
+ { date: "2026-02-12", title: "King’s Arts Festival", uni: "Kings" },
+ { date: "2026-03-25", title: "Leeds International Piano Comp", uni: "Leeds" },
+ { date: "2026-03-17", title: "St Patrick's Day", uni: "Liverpool" },
+ { date: "2026-02-19", title: "LSE Festival", uni: "LSE" },
+ { date: "2026-03-12", title: "Mental Health Day", uni: "Manchester" },
+ { date: "2026-02-08", title: "Brundibar Closing Concert", uni: "Newcastle" },
+ { date: "2026-02-14", title: "Frank Morton Sports Day", uni: "Nottingham" },
+ { date: "2026-03-28", title: "Poetry in the Galleries", uni: "Oxford" },
+ { date: "2026-03-17", title: "St Patrick’s Day Belfast", uni: "Queens" },
+ { date: "2026-03-05", title: "Festival of the Mind", uni: "Sheffield" },
+ { date: "2026-03-15", title: "Science & Engineering Day", uni: "Southampton" },
+ { date: "2026-03-05", title: "StAnza: Poetry Fest", uni: "St Andrews" },
+ { date: "2026-02-23", title: "UCL International Festival", uni: "UCL" },
+ { date: "2026-03-23", title: "Resonate Festival of Ideas", uni: "Warwick" },
+ { date: "2026-02-14", title: "Jorvik Viking Festival", uni: "York" }
+];
+
+// --- LOGIC ---
+function showPage(pageId){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(pageId).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+// Honeycomb
+const hiveCont = document.getElementById('hive');
+slangWords.forEach(item => {
+  const hex = document.createElement('div');
+  hex.className = 'hex';
+  hex.innerHTML = `<div class="word">${item.word}</div><div class="def">${item.definition}</div>`;
+  hex.onclick = () => {
+    document.querySelectorAll('.hex.expanded').forEach(h => { if(h!==hex) h.classList.remove('expanded'); });
+    hex.classList.toggle('expanded');
+  };
+  hiveCont.appendChild(hex);
+});
+
+// Translator
+document.getElementById('translate-btn').onclick = () => {
+  const input = document.getElementById('slang-input').value.trim();
+  const output = document.getElementById('translation-output');
+  const voice = document.getElementById('ai-voice-output');
+  const found = slangWords.find(s => s.word.toLowerCase() === input.toLowerCase());
+  if (found) {
+    output.innerHTML = `<p><strong>"${found.word}"</strong> means: ${found.definition}</p>`;
+    voice.innerHTML = `<p style="font-size:0.9rem; color:#666;">AI Voice: "The definition of ${found.word} is ${found.definition}."</p>`;
+  } else {
+    output.innerHTML = `<p>Sorry, "${input}" is not in the hive yet!</p>`;
+    voice.innerHTML = "";
+  }
+};
+
+// Calendar
+function initCalendar() {
+  const mS = document.getElementById('month-select');
+  const yS = document.getElementById('year-select');
+  const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+  months.forEach((m, i) => mS.innerHTML += `<option value="${i}">${m}</option>`);
+  for (let i = 2024; i <= 2026; i++) yS.innerHTML += `<option value="${i}">${i}</option>`;
+  const d = new Date(); mS.value = d.getMonth(); yS.value = d.getFullYear();
+  generateCalendar();
+}
+function updateCalendar() { generateCalendar(); }
+function generateCalendar() {
+  const table = document.getElementById('calendar-table');
+  const m = parseInt(document.getElementById('month-select').value);
+  const y = parseInt(document.getElementById('year-select').value);
+  const uni = document.getElementById('uni-filter').value;
+  const first = new Date(y, m, 1).getDay();
+  const total = new Date(y, m + 1, 0).getDate();
+  const today = new Date().toDateString();
+  let html = '<tr><th>S</th><th>M</th><th>T</th><th>W</th><th>T</th><th>F</th><th>S</th></tr><tr>';
+  for (let i = 0; i < first; i++) html += '<td></td>';
+  for (let day = 1; day <= total; day++) {
+    const dKey = `${y}-${String(m+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+    const evs = hiveEvents.filter(e => e.date === dKey && (uni === 'all' || e.uni === uni));
+    const isToday = new Date(y, m, day).toDateString() === today ? 'today' : '';
+    const hasEv = evs.length > 0 ? 'has-event' : '';
+    const dot = evs.length > 0 ? '<div class="event-dot"></div>' : '';
+    html += `<td class="${isToday} ${hasEv}" onclick="showEvent('${dKey}')">${day}${dot}</td>`;
+    if ((day + first) % 7 === 0) html += '</tr><tr>';
+  }
+  table.innerHTML = html;
+}
+function showEvent(dKey) {
+  const uni = document.getElementById('uni-filter').value;
+  const evs = hiveEvents.filter(e => e.date === dKey && (uni === 'all' || e.uni === uni));
+  if(evs.length === 0) return;
+  document.getElementById('modal-date').innerText = dKey;
+  document.getElementById('modal-content').innerHTML = evs.map(e => `<strong>${e.uni}</strong>: ${e.title}`).join('<br>');
+  document.getElementById('event-modal').style.display = 'flex';
+}
+function closeModal() { document.getElementById('event-modal').style.display = 'none'; }
+
+window.onload = initCalendar;
+document.getElementById('mini-game-btn').onclick = () => alert("Mini Game coming soon!");
+</script>
 </body>
 </html>
+
+
