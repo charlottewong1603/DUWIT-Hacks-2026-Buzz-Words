@@ -34,10 +34,10 @@ document.getElementById('translate-btn').addEventListener('click', () => {
        const resultText = userInput.replace(new RegExp(foundSlang.word, 'gi'), foundSlang.definition);
       
        output.innerHTML = `<p><strong>"${foundSlang.word}"</strong> means: ${foundSlang.definition}</p>`;
-       voiceOutput.innerHTML = `<p>AI voice would read: "The definition of ${foundSlang.word} is ${foundSlang.definition}."</p>`;
+       //voiceOutput.innerHTML = `<p>AI voice would read: "The definition of ${foundSlang.word} is ${foundSlang.definition}."</p>`;
    } else {
        output.innerHTML = `<p>Sorry, "<strong>${userInput}</strong>" isn't in our Hive yet!</p>`;
-       voiceOutput.innerHTML = `<p>Try searching for 'Bees knees' or 'Mate'.</p>`;
+       //voiceOutput.innerHTML = `<p>Try searching for 'Bees knees' or 'Mate'.</p>`;
    }
 });
 
