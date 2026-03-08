@@ -1,1 +1,1 @@
-Here is a read me! :)
+Here is a read me!
