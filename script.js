@@ -290,34 +290,37 @@ function generateCalendar() {
 }
 
 
+// --- KEEP THESE AT THE BOTTOM OF script.js ---
+
 function showEvent(dateKey) {
-   const selectedUni = document.getElementById('uni-filter').value;
-   const events = hiveEvents.filter(e => e.date === dateKey && (selectedUni === 'all' || e.uni === selectedUni));
-  
-   const modal = document.getElementById('event-modal');
-   const modalDate = document.getElementById('modal-date');
-   const modalContent = document.getElementById('modal-content');
+    const selectedUni = document.getElementById('uni-filter').value;
+    const events = hiveEvents.filter(e => e.date === dateKey && (selectedUni === 'all' || e.uni === selectedUni));
+    
+    const modal = document.getElementById('event-modal');
+    const modalDate = document.getElementById('modal-date');
+    const modalContent = document.getElementById('modal-content');
 
-
-   modalDate.innerText = `Events for ${dateKey}`;
-  
-   if (events.length > 0) {
-       modalContent.innerHTML = events.map(e => `
-           <div style="margin-bottom:12px; padding:10px; background:#f9f9f9; border-radius:8px; border-left:4px solid var(--primary-yellow);">
-               <strong style="color:var(--primary-blue);">${e.uni}</strong><br>
-               <span>${e.title}</span>
-           </div>
-       `).join('');
-   } else {
-       modalContent.innerHTML = "<p style='text-align:center; color:#666;'>No events scheduled for this day.</p>";
-   }
-  
-   modal.style.display = 'flex';
+    modalDate.innerText = `Events for ${dateKey}`;
+    
+    if (events.length > 0) {
+        modalContent.innerHTML = events.map(e => `
+            <div style="margin-bottom:12px; padding:10px; background:#f9f9f9; border-radius:8px; border-left:4px solid var(--primary-yellow);">
+                <strong style="color:var(--primary-blue);">${e.uni}</strong><br>
+                <span>${e.title}</span>
+            </div>
+        `).join('');
+    } else {
+        modalContent.innerHTML = "<p style='text-align:center; color:#666;'>No events scheduled for this day.</p>";
+    }
+    
+    modal.style.display = 'flex';
 }
 
-
 function closeModal() {
-   document.getElementById('event-modal').style.display = 'none';
+    const modal = document.getElementById('event-modal');
+    if (modal) {
+        modal.style.display = 'none';
+    }
 }
 
 
